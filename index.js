@@ -18,7 +18,7 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 L.marker({lon: 0, lat: 0}).bindPopup('The center of the world').addTo(mymap);
 
 async function fetchSettlementsFromApi() {
-    const locationsUrlApi = `https://www.mapi.gov.il/ProfessionalInfo/Documents/dataGov/CITY.xml`;
+    const locationsUrlApi = `./CITY.xml`;
     const locations = await fetch(locationsUrlApi);
     console.log(locations);
     return await locations.text();
