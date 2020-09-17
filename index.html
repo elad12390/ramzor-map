@@ -19,14 +19,18 @@
     <script>
     _u = _.noConflict();
     </script>
+    <link href="https://fonts.googleapis.com/css2?family=Alef&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./index.css">
     <title>מפת רמזור</title>
 </head>
 <body>
-    <input id="search" type="search"/>
-    <div id="map"></div>
+    <div class="page-container">
+        <div class="search">
+            <label for="search">חיפוש ערים: </label>
+            <input id="search" type="search"/>    
+        </div>
+        <div id="map"></div>    
+    </div>
     <script src="./index.js"></script>
-    <div #lon></div>
-    <div #lat></div>
 </body>
 </html>

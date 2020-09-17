@@ -1,1 +1,9 @@
 #map { height: 90vh; width: 90vw }
+body {
+    direction: rtl;
+    font-family: 'Alef', sans-serif;
+}
+
+body div.page-container  div.search {
+        padding-bottom: 1rem;
+}

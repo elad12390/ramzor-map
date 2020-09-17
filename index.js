@@ -15,7 +15,6 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
     attribution: '&copy; <a href="https://openstreetmap.org/copyright">OpenStreetMap contributors</a>'
   }).addTo(mymap);
-L.marker({lon: 0, lat: 0}).bindPopup('The center of the world').addTo(mymap);
 
 async function fetchSettlementsFromApi() {
     const locationsUrlApi = `./CITY.xml`;
@@ -47,26 +46,33 @@ async function getSettlementsAndExtract() {
 
 getSettlementsAndExtract().then((values) => {
     mappedSettlements = values;
+    console.log(values);
     values.map(val => {
-        if (!val.coords || _u.isNaN(parseFloat(val.score))) return;
+        console.log(parseFloat(val.score))
+        if (!val.coords) return;
         const score = parseFloat(val.score);
-        console.log();
         let color = "00000000";
         switch(val.colour_Calc) {
             case 'כתום':
                 color = '#FFA500';
                 break;
             case 'אדום':
-                color = '#FF0000'
+                color = '#FF0000';
                 break;
             case 'צהוב':
-                color = '#FFFF00'
+                color = '#FFFF00';
                 break;
             case 'ירוק':
-                color = '#00FF00'
+                color = '#00FF00';
                 break;
+            default:
+                color = '#FFFFFF';
         }
-        var marker = L.marker([val.coords.y,val.coords.x], {opacity: .5, riseOnHover: true}).bindPopup(val.name + ` ציון: ${score}/10`).addTo(mymap);
+        if (!_u.isNaN(score)) {
+            var marker = L.marker([val.coords.y,val.coords.x], {opacity: .5, riseOnHover: true}).bindPopup(val.name + ` ציון: ${score}/10`).addTo(mymap);
+        } else {
+            var marker = L.marker([val.coords.y,val.coords.x], {opacity: .5, riseOnHover: true}).bindPopup(val.name).addTo(mymap);
+        }
         marker.on('click', (e) => {
             mymap.setView([val.coords.y,val.coords.x], 14);
             currZoom = 14;
@@ -83,14 +89,12 @@ mymap.on('zoom', (e) => {
     }
     
     if (currZoom < 10 && hidden == false) {
-        console.log('test');
         for (i = 0; i < markers.length; i++) {
             markers[i].options.opacity = 0;
             markers[i]._updateOpacity()
         }
         hidden = true;
     } else if (hidden == true && currZoom > 10) {
-        console.log('test');
         for (i = 0; i < markers.length; i++) {
             markers[i].options.opacity = .5;
             markers[i]._updateOpacity()
