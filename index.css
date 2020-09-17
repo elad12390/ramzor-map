@@ -1,9 +1,13 @@
-#map { height: 90vh; width: 90vw }
+#map { height: 87vh; width: 100% }
 body {
     direction: rtl;
     font-family: 'Alef', sans-serif;
 }
 
+h1 {
+    margin-bottom: .2rem;
+    margin-top: .2rem;
+}
 body div.page-container  div.search {
         padding-bottom: 1rem;
 }
